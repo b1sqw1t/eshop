@@ -1,0 +1,43 @@
+{% extends 'base/main.html' %}
+{% load static %}
+{% block body %}
+<br>
+<div align="center">
+<h2>История заказов {{ user.get_full_name}}</h2>
+</div>
+    <br>
+<div class="container" >
+	<div class="row">
+       <div class="col-md-2 ">
+       </div>
+       <div class="col-md-8 ">
+{% for order in object %}
+<p>
+{{ order }}.
+<p>Создан - {{ order.created }}</p>
+    <ul>
+
+        <table class="table">
+            <tr>
+                <td>Товар</td>
+                <td>Количество</td>
+                <td>Цена за единицу</td>
+            </tr>
+                    {% for field in order.items.all %}
+            <tr>
+                <td><a href="{{ field.product.get_absolute_url }}">{{ field.product.product_brand }} {{ field.product }}</a></td>
+                <td>{{field.quantity}}</td>
+                <td>{{field.price}}</td>
+            </tr>
+        </table>
+
+        {%endfor %}
+    </ul>
+</p>
+<br>
+
+{% endfor %}
+                  </div>
+    </div>
+</div>
+{% endblock %}

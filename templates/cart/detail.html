@@ -1,0 +1,137 @@
+{% extends "base/main.html" %}
+{% load static %}
+{% block title %}
+    Моя корзина
+{% endblock %}
+{% block body %}
+
+
+        <section id="content">
+        	<div id="breadcrumb-container">
+        		<div class="container">
+					<ul class="breadcrumb">
+						<li><a href="/">Главная страница</a></li>
+						<li class="active">Моя корзина</li>
+					</ul>
+        		</div>
+        	</div>
+        	<div class="container">
+        		<div class="row">
+        			<div class="col-md-12">
+						<header class="content-title">
+							<h1 class="title">Ваша корзина</h1>
+							<p class="title-desc">Только на этой неделе вы можете воспользоваться бесплатной премиальной доставкой.</p>
+						</header>
+        				<div class="xs-margin"></div><!-- space -->
+        				<div class="row">
+
+        					<div class="col-md-12 table-responsive">
+
+        						<table class="table cart-table">
+        						<thead>
+        							<tr>
+										<th class="table-title">Наименование товара</th>
+										<th class="table-title">Id товара</th>
+										<th class="table-title">Цена товара</th>
+										<th class="table-title">Количество</th>
+										<th class="table-title">На сумму</th>
+        							</tr>
+        						</thead>
+								<tbody>
+                                {% for item in cart %}
+                                    {% with product=item.product %}
+
+									<tr>
+										<td class="item-name-col">
+											<figure>
+
+												<a href="#"><img src="{{product.images.all.0.picture_image.url }}" alt={{product.name}}></a>
+											</figure>
+											<header class="item-name"><a href="{{ product.get_absolute_url }}">{{product.product_brand}} {{product.product_name}}</a></header>
+											<ul>
+												<li>Color: White</li>
+												<li>Size: SM</li>
+											</ul>
+										</td>
+										<td class="item-code">{{product.id}}</td>
+										<td class="item-price-col"><span class="item-price-special">{{ item.price }}</span></td>
+										<td>
+											<div class="custom-quantity-input">
+												<input type="text" name="quantity" value="{{item.quantity}}">
+												<a href="#" onclick="return false;" class="quantity-btn quantity-input-up"><i class="fa fa-angle-up"></i></a>
+												<a href="#" onclick="return false;" class="quantity-btn quantity-input-down"><i class="fa fa-angle-down"></i></a>
+											</div>
+
+										</td>
+										<td class="item-total-col"><span class="item-price-special">{{ item.total_price }}</span>
+										<a href="{% url 'cart:cart_remove' product.id%}" class="close-button"></a>
+										</td>
+									</tr>
+                                    {% endwith %}
+                                    {% endfor %}
+
+								</tbody>
+							  </table>
+
+        					</div><!-- End .col-md-12 -->
+
+        				</div><!-- End .row -->
+        				<div class="lg-margin"></div><!-- End .space -->
+
+        				<div class="row">
+
+
+        					<div class="col-md-12 col-sm-12 col-xs-12">
+
+        						<table class="table total-table">
+        							<tbody>
+        								<tr>
+        									<td class="total-table-title">ПОДИТОГ:</td>
+        									<td>{{ cart.get_total_price }}</td>
+        								</tr>
+        								<tr>
+        									<td class="total-table-title">Доставка:</td>
+        									<td>0.00</td>
+        								</tr>
+        								<tr>
+        									<td class="total-table-title">СКИДКА (0%):</td>
+        									<td>0.00</td>
+        								</tr>
+        							</tbody>
+        							<tfoot>
+        								<tr>
+											<td>ИТОГО:</td>
+											<td>{{ cart.get_total_price }}</td>
+        								</tr>
+        							</tfoot>
+        						</table>
+        						<div class="md-margin"></div><!-- End .space -->
+        						<a href="{% url 'index:category_view' %}" class="btn btn-custom-2">Продолжить покупки</a>
+        						<a href="{% url 'orders:order_create' %}" class="btn btn-custom">Оформление заказа</a>
+        					</div><!-- End .col-md-4 -->
+        				</div><!-- End .row -->
+        				<div class="md-margin2x"></div><!-- Space -->
+
+
+        			</div><!-- End .col-md-12 -->
+        		</div><!-- End .row -->
+			</div><!-- End .container -->
+
+        </section><!-- End #content -->
+
+
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/smoothscroll.js' %}"></script>
+	<script src="{% static 'js/jquery.debouncedresize.js' %}"></script>
+    <script src="{% static 'js/retina.min.js' %}"></script>
+    <script src="{% static 'js/jquery.placeholder.js' %}"></script>
+    <script src="{% static 'js/jquery.hoverIntent.min.js' %}"></script>
+	<script src="{% static 'js/twitter/jquery.tweet.min.js' %}"></script>
+	<script src="{% static 'js/jquery.flexslider-min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'js/jflickrfeed.min.js' %}"></script>
+	<script src="{% static 'js/jquery.prettyPhoto.js' %}"></script>
+    <script src="{% static 'js/jquery.selectbox.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}

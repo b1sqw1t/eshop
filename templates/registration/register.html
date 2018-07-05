@@ -1,0 +1,189 @@
+{% extends "base/main.html" %}
+{% load static %}
+{% block body %}
+
+
+        <section id="content">
+        	<div id="breadcrumb-container">
+        		<div class="container">
+					<ul class="breadcrumb">
+						<li><a href="index.html">Главная страница</a></li>
+						<li class="active">Регистрация аккаунта</li>
+					</ul>
+        		</div>
+        	</div>
+        	<div class="container">
+        		<div class="row">
+        			<div class="col-md-12">
+						<header class="content-title">
+							<h1 class="title">Регистрация аккаунта</h1>
+							<p class="title-desc">Если у вас уже есть аккаунт, пожалуйста, <a href="#">войдите</a>.</p>
+						</header>
+        				<div class="xs-margin"></div><!-- space -->
+						<form action="" id="register-form" method="post">
+						{% csrf_token %}
+        				<div class="row">
+        					
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									
+									<fieldset>
+									<h2 class="sub-title">Ваши регистрационные данные</h2>
+										{% if user_form.username.errors %}
+										<h3 style="color:red">{{ user_form.username.errors }}</h3>
+										{% endif %}
+									<div class="input-group">
+										<span class="input-group-addon"><span class="input-icon input-icon-user"></span><span class="input-text">Логин&#42;</span></span>
+										<input type="text" required class="form-control input-lg" placeholder="Ваш логин" {{ user_form.username }}
+									</div><!-- End .input-group -->
+										{% if user_form.first_name.errors %}
+										<h3 style="color:red">{{ user_form.first_name.errors }}</h3>
+										{% endif %}
+									<div class="input-group">
+										<span class="input-group-addon"><span class="input-icon input-icon-user"></span><span class="input-text">Имя&#42;</span></span>
+										<input type="text" required class="form-control input-lg" placeholder="Ваше имя" {{ user_form.first_name }}
+									</div><!-- End .input-group -->
+										{% if user_form.last_name.errors %}
+										<h3 style="color:red">{{ user_form.last_name.errors }}</h3>
+										{% endif %}
+									<div class="input-group">
+										<span class="input-group-addon"><span class="input-icon input-icon-user"></span><span class="input-text">Фамилия&#42;</span></span>
+										<input type="text" required class="form-control input-lg" placeholder="Ваша фамилия" {{ user_form.last_name }}
+									</div><!-- End .input-group -->
+										{% if user_form.email.errors %}
+										<h3 style="color:red">{{ user_form.email.errors }}</h3>
+										{% endif %}
+									<div class="input-group">
+										<span class="input-group-addon"><span class="input-icon input-icon-email"></span><span class="input-text">Email&#42;</span></span>
+										<input type="text" required class="form-control input-lg" placeholder="Your Email" {{ user_form.email }}
+									</div><!-- End .input-group -->
+										{% if profile_form.Telephone.errors %}
+										<h3 style="color:red">{{ profile_form.Telephone.errors }}</h3>
+										{% endif %}
+									<div class="input-group">
+										<span class="input-group-addon"><span class="input-icon input-icon-phone"></span><span class="input-text">Телефон&#42; +7</span></span>
+										<input type="text" required class="form-control input-lg" placeholder="9035558833" {{ profile_form.Telephone }}
+									</div><!-- End .input-group -->
+									{% if profile_form.Fax.errors %}
+										<h3 style="color:red">{{ profile_form.Fax.errors }}</h3>
+										{% endif %}
+										<div class="input-group">
+										<span class="input-group-addon"><span class="input-icon input-icon-fax"></span><span class="input-text">Факс</span></span>
+										<input type="text" class="form-control input-lg" placeholder="Ваш факс" {{ profile_form.Fax }}
+									</div><!-- End .input-group -->
+									
+									</fieldset>
+									
+									<fieldset>
+									<h2 class="sub-title">Пароль</h2>
+										{% if user_form.password.errors %}
+										<h3 style="color:red;">{{ user_form.password.errors }}</h3>
+										{% endif %}
+										{% if user_form.password2.errors %}
+										<h3 style="color:red;">{{ user_form.password2.errors }}</h3>
+										{% endif %}
+									<div class="input-group">
+										<span class="input-group-addon"><span class="input-icon input-icon-password"></span><span class="input-text">Пароль&#42;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</span></span>
+										<input type="password" required class="form-control input-lg" placeholder="Ваш пароль" {{ user_form.password}}
+									</div><!-- End .input-group -->
+
+									<div class="input-group">
+										<span class="input-group-addon"><span class="input-icon input-icon-password"></span><span class="input-text">Пароль еще раз&#42;</span></span>
+										<input type="password" required class="form-control input-lg" placeholder="Ваш пароль еще раз   "{{user_form.password2}}
+									</div><!-- End .input-group -->
+									</fieldset>
+									
+									
+								</div><!-- End .col-md-6 -->
+        						
+        						<div class="col-md-6 col-sm-6 col-xs-12">
+        						<fieldset>
+									<h2 class="sub-title">Адреса доставки товара</h2>
+									{% if profile_form.Company.errors %}
+										<h3 style="color:red">{{ profile_form.Company.errors }}</h3>
+										{% endif %}
+									<div class="input-group">
+										<span class="input-group-addon"><span class="input-icon input-icon-company"></span><span class="input-text">Компания</span></span>
+										<input type="text" required class="form-control input-lg" placeholder="Ваша фирма,компания,предприятие" {{ profile_form.Company }}
+									</div><!-- End .input-group -->
+									{% if profile_form.Adress1.errors %}
+										<h3 style="color:red">{{ profile_form.Adress1.errors }}</h3>
+										{% endif %}
+									<div class="input-group">
+										<span class="input-group-addon"><span class="input-icon input-icon-address"></span><span class="input-text">Адрес 1&#42;</span></span>
+										<input type="text" class="form-control input-lg" placeholder="Ваш адрес" {{ profile_form.Adress1 }}
+									</div><!-- End .input-group -->
+									{% if profile_form.Adress2.errors %}
+										<h3 style="color:red">{{ profile_form.Adress2.errors }}</h3>
+										{% endif %}
+									<div class="input-group">
+										<span class="input-group-addon"><span class="input-icon input-icon-address"></span><span class="input-text">Адрес 2</span></span>
+										<input type="text" required  class="form-control input-lg" placeholder="Ваш второй адрес"{{ profile_form.Adress2 }}
+									</div><!-- End .input-group -->
+									{% if profile_form.City.errors %}
+										<h3 style="color:red">{{ profile_form.City.errors }}</h3>
+										{% endif %}
+									<div class="input-group">
+										<span class="input-group-addon"><span class="input-icon input-icon-city"></span><span class="input-text">Город&#42;</span></span>
+										<input type="text" required class="form-control input-lg" placeholder="Ваш город" {{ profile_form.City }}
+									</div><!-- End .input-group -->
+									{% if profile_form.Zip_code.errors %}
+										<h3 style="color:red">{{ profile_form.Zip_code.errors }}</h3>
+										{% endif %}
+									<div class="input-group">
+										<span class="input-group-addon"><span class="input-icon input-icon-postcode"></span><span class="input-text">Почтовый индекс&#42;</span></span>
+										<input type="text" required class="form-control input-lg" placeholder="Ваш почтовый индекс" {{ profile_form.Zip_code }}
+									</div>
+										{% if profile_form.Country.errors %}
+										<h3 style="color:red">{{ profile_form.Country.errors }}</h3>
+										{% endif %}
+									<div class="input-group">
+										<span class="input-group-addon"><span class="input-icon input-icon-country"></span><span class="input-text">Страна&#42;</span></span>
+										<input type="text" required class="form-control input-lg" placeholder="Ваша страна" {{ profile_form.Country }}
+									</div><!-- End .input-group -->
+									{% if profile_form.State.errors %}
+										<h3 style="color:red">{{ profile_form.State.errors }}</h3>
+										{% endif %}
+									<div class="input-group">
+										<span class="input-group-addon"><span class="input-icon input-icon-region"></span><span class="input-text">Регион / область&#42;</span></span>
+										<input type="text" required class="form-control input-lg" placeholder="Ваш регион/область" {{ profile_form.State }}
+									</div><!-- End .input-group -->
+									
+
+
+									<!-- End .input-group -->
+									
+									</fieldset>
+        						</div><!-- End .col-md-6 -->
+        					
+        				</div><!-- End .row -->
+						
+						<div class="row">
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<fieldset class="half-margin">
+									<h2 class="sub-title">Рассылка</h2>
+										<div class="input-desc-box">
+											<span class="separator icon-box">&plus;</span>Я хочу подписаться на рассылку Venedor.
+										</div><!-- End .input-desc -->
+									
+									<div class="input-group custom-checkbox">
+									 <input type="checkbox"> <span class="checbox-container">
+									 <i class="fa fa-check"></i>
+									 </span>
+									 Я соглашаюсь с <a href="#"> пользовательским соглашением</a>.
+									 
+									</div><!-- End .input-group -->
+								</fieldset>
+								
+								<input type="submit" value="Создать новый аккаунт" class="btn btn-custom-2 md-margin">
+							</div><!-- End .col-md-6 -->
+						</div><!-- End .row -->
+        				</form>
+        			</div><!-- End .col-md-12 -->
+        		</div><!-- End .row -->
+			</div><!-- End .container -->
+        
+        </section><!-- End #content -->
+
+
+
+{% endblock %}

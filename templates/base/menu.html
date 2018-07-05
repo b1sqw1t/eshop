@@ -1,0 +1,122 @@
+{% load static %}
+<div class="col-md-3 col-sm-4 col-xs-12 sidebar">
+    <div class="widget reversebg">
+        <h3>КАТЕГОРИИ</h3>
+
+        <div class="list-group list-group-brand list-group-accordion">
+        <a href="#" class="list-group-item">Fashion
+            <span class="filter-icon filter-icon-fashion"></span>
+        </a>
+            <a href="#" class="list-group-item">Furniture
+                <span class="filter-icon filter-icon-furniture"></span>
+            </a>
+            <a href="{% url 'index:category_view' %}" class="list-group-item">Электроника
+                                            <span class="filter-icon filter-icon-electronics"></span>
+            </a>
+            <a href="#" class="list-group-item">Gifts
+                <span class="filter-icon filter-icon-gifts"></span>
+            </a>
+            <a href="#" class="list-group-item">Books
+                <span class="filter-icon filter-icon-books"></span>
+            </a>
+            <a href="#" class="list-group-item">Music
+                <span class="filter-icon filter-icon-music"></span>
+            </a>
+            <a href="#" class="list-group-item">Sport &amp; Tourism
+                <span class="filter-icon filter-icon-sport"></span>
+            </a>
+            <a href="#" class="list-group-item">Games
+                <span class="filter-icon filter-icon-games"></span>
+            </a>
+        </div><!-- End .list-group -->
+    </div>
+
+    <div class="widget reversebg">
+        <h3>Производители</h3>
+        <div class="list-group list-group-brand">
+            {% for brand in product_brand %}
+                <a href="{% url 'index:category_view' type=brand%}" class="list-group-item">{{ brand }}</a>
+            {% endfor %}
+        </div><!-- End .list-group -->
+    </div>
+    <div class="widget subscribe">
+        <h3>BE THE FIRST TO KNOW</h3>
+        <p> Get all the latest information on Events, Sales and Offers. Sign up for the Venedor store newsletter today.</p>
+        <form action="#" id="subscribe-form">
+            <div class="form-group">
+                <input type="email" class="form-control" id="subscribe-email" placeholder="Enter your email address">
+            </div>
+            <input type="submit" value="SUBMIT" class="btn btn-custom">
+        </form>
+    </div>
+    {% include 'base/last_comments.html' %}
+
+
+    <div class="widget latest-posts">
+        <h3>Recent Posts</h3>
+        <div class="latest-posts-slider flexslider sidebarslider">
+            <ul class="latest-posts-list clearfix">
+                <li>
+                    <a href="single.html">
+                        <figure class="latest-posts-media-container">
+                            <img class="img-responsive" src=" {% static 'images/blog/post1-small.jpg' %}" alt="lats post">
+                        </figure>
+                    </a>
+                    <h4><a href="single.html">35% Discount on second purchase!</a></h4>
+                    <p>Sed blandit nulla nec nunc ullamcorper tristique. Mauris adipiscing cursus ante ultricies dictum sed lobortis.</p>
+                    <div class="latest-posts-meta-container clearfix">
+                        <div class="pull-left">
+                            <a href="#">Read More...</a>
+                        </div><!-- End .pull-left -->
+                        <div class="pull-right">
+                            12.05.2013
+                        </div><!-- End .pull-right -->
+                    </div><!-- End .latest-posts-meta-container -->
+                </li>
+                <li>
+                    <a href="single.html">
+                        <figure class="latest-posts-media-container">
+                            <img class="img-responsive" src=" {% static 'images/blog/post2-small.jpg' %}" alt="lats post">
+                        </figure>
+                    </a>
+                    <h4><a href="single.html">Free shipping for regular customers.</a></h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque fuga officia in molestiae easint..</p>
+                    <div class="latest-posts-meta-container clearfix">
+                        <div class="pull-left">
+                            <a href="#">Read More...</a>
+                        </div><!-- End .pull-left -->
+                        <div class="pull-right">
+                            10.05.2013
+                        </div><!-- End .pull-right -->
+                    </div><!-- End .latest-posts-meta-container -->
+                </li>
+                <li>
+                    <a href="single.html">
+                        <figure class="latest-posts-media-container">
+                            <img class="img-responsive" src=" {% static 'images/blog/post3-small.jpg' %}" alt="lats post">
+                        </figure>
+                    </a>
+                    <h4><a href="#">New jeans on sales!</a></h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque fuga officia in molestiae easint..</p>
+                    <div class="latest-posts-meta-container clearfix">
+                        <div class="pull-left">
+                            <a href="#">Read More...</a>
+                        </div><!-- End .pull-left -->
+                        <div class="pull-right">
+                            8.05.2013
+                        </div><!-- End .pull-right -->
+                    </div><!-- End .latest-posts-meta-container -->
+                </li>
+            </ul>
+        </div><!-- End .latest-posts-slider -->
+    </div><!-- End .widget -->
+    <div class="widget banner-slider-container">
+        <div class="banner-slider flexslider">
+            <ul class="banner-slider-list clearfix">
+                <li><a href="#"><img src=" {% static 'images/banner1.jpg' %}" alt="Banner 1"></a></li>
+                <li><a href="#"><img src=" {% static 'images/banner2.jpg' %}" alt="Banner 2"></a></li>
+                <li><a href="#"><img src=" {% static 'images/banner3.jpg' %}" alt="Banner 3"></a></li>
+            </ul>
+        </div>
+    </div><!-- End .widget -->
+</div><!-- End .col-md-3 -->

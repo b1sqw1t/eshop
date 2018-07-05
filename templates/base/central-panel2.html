@@ -1,0 +1,46 @@
+{% load static %}
+<div class="item item-list clearfix">
+    <div class="item-image-container">
+        <figure>
+            <a href="{{ product.get_absolute_url }}">
+                    <img src=" {{ product.images.all.0.picture_image.url }}" alt="item1" class="item-image">
+                    <img src=" {{ product.images.all.0.picture_image.url }}" alt="item1  Hover" class="item-image-hover">
+            </a>
+        </figure>
+        <div class="item-price-container">
+            {% if product.product_old_price > 0 %}
+                    <span class="old-price">{{ product.product_old_price }}</span>
+                    <span class="item-price">{{ product.product_price}}</span>
+                {% else %}
+                    <span class="item-price">{{ product.product_price}}</span>
+                {% endif %}
+        </div>
+        {% if product.product_new %}
+                <span class="new-rect">Новинка</span>
+            {% endif %}
+            {% if product.product_discount > 0 %}
+                <span class="discount-rect">- {{ product.product_discount }}</span>
+            {% endif %}
+    </div><!-- End .item-image -->
+    <div class="item-meta-container">
+        <h3 class="item-name"><a href="{{ product.get_absolute_url }}">{{ product.product_brand }} {{ product.product_name }}</a></h3>
+        <div class="ratings-container">
+            <div class="ratings">
+                <div class="ratings-result" data-result="{{product.product_rating}}"></div>
+            </div><!-- End .ratings -->
+            <span class="ratings-amount">
+                {{product.get_votes}} Голос(ов)
+            </span>
+        </div><!-- End .rating-container -->
+        <p>Nulla nunc turpis, semper a est ut, commodo rutrum nunc. Nullam pellentesque sed lacus a condimentum. Vivamus pretium tempus fermentum. Suspendisse quis urna posuere, vestibulum enim sit amet, mollis augue. Fusce eu fermentum nunc. Pellentesque a volutpat ipsum...</p>
+        <div class="item-action">
+            <a href="#" class="item-add-btn">
+                <span class="icon-cart-text">В Корзину</span>
+            </a>
+            <div class="item-action-inner">
+                <a href="#" class="icon-button icon-like">Favourite</a>
+                <a href="#" class="icon-button icon-compare">Checkout</a>
+            </div><!-- End .item-action-inner -->
+        </div><!-- End .item-action -->
+    </div><!-- End .item-meta-container -->
+</div><!-- End .item -->

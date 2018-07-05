@@ -1,0 +1,188 @@
+{% extends 'base/main.html' %}
+{% load static %}
+{% block body %}
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="">
+    <!-- UI - X Starts -->
+    <div class="ui-67">
+
+      <!-- Head Starts -->
+      <div class="ui-head bg-lblue">
+        <!-- Details -->
+        <div class="ui-details" align="center">
+          <!-- Name -->
+          <h3 id="name-header">{{ request.user.username }}</h3>
+          <!-- Designation -->
+          <h4>Редактирование аккаунта</h4>
+        </div>
+      </div>
+      <!-- Head Ends -->
+
+      <!-- Content Starts -->
+      <div class="ui-content">
+
+        <div class="row">
+
+          <div class="col-sm-8 col-md-8 col-lg-8 col-lg-offset-2 acc-col">
+            <section>
+
+            <form class="ng-pristine ng-valid" role="form" action="" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row">
+
+                  <div class="col-sm-6">
+                    <label for="inputName" class="control-label">login:</label>
+                      <input type="text" class="form-control" {{user_form.username}}
+                  </div>
+                  <div class="col-sm-6">
+
+                      <label for="inputEmail" class="control-label">Email:</label>
+                        <input type="email" class="form-control" {{user_form.email }}
+                  </div>
+                  <div class="col-sm-6">
+
+                    <label for="inputName" class="control-label">Имя:</label>
+                      <input type="text" class="form-control" {{user_form.first_name}}
+                  </div>
+                  <div class="col-sm-6">
+
+                    <label for="inputName" class="control-label">Фамилия:</label>
+                      <input type="text" class="form-control"{{user_form.last_name}}
+                  </div>
+                </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <label for="inputPassword" class="control-label">Пароль:</label>
+                  <div class="">
+                    <input type="password" class="form-control" id="inputEmail3">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <label for="inputPassword2" class="control-label">Пароль еще раз:</label>
+                      <div class="">
+                        <input type="password" class="form-control" id="inputPassword3">
+                      </div>
+                  </div>
+
+
+                </div>
+
+
+            </section>
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <section>
+              <h3>Дополнительная информация</h3>
+              <br>
+                                  <p><input type="file" {{ profile_form.image }}</p>
+
+                 <div class="row">
+                  <div class="col-sm-4">
+                    <label for="inputName" class="control-label">Дата рождения:</label>
+                      <input type="date"   class="form-control" {{profile_form.Birthday}}
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="inputName" class="control-label">Телефон:</label>
+                      <input type="number" class="form-control" {{profile_form.Telephone}}
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="inputName" class="control-label">Факс:</label>
+                      <input type="number" class="form-control" {{profile_form.Fax}}
+                  </div>
+
+                </div>
+                <br>
+                  <div class="row">
+                  <div class="col-sm-3">
+                    <label for="inputName" class="control-label">Страна:</label>
+                      <input type="text" class="form-control" {{profile_form.Country}}
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="inputName" class="control-label">Регион/область:</label>
+                      <input type="text" class="form-control" {{profile_form.State}}
+                  </div>
+
+                  <div class="col-sm-3">
+                    <label for="inputName" class="control-label">Город:</label>
+                      <input type="text" class="form-control" {{profile_form.City}}
+                  </div>
+
+                  <div class="col-sm-2">
+                    <label for="inputName" class="control-label">Индекс:</label>
+                      <input type="number" class="form-control" {{profile_form.Zip_code}}
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                   <div class="col-sm-6">
+                    <label for="inputName" class="control-label">Адрес:</label>
+                      <input type="text" class="form-control" {{profile_form.Adress1}}
+                  </div>
+
+                   <div class="col-sm-6">
+                    <label for="inputName" class="control-label">Адрес2:</label>
+                      <input type="text" class="form-control" {{profile_form.Adress2}}
+                  </div>
+                </div>
+                                <br>
+
+                <div class="row">
+                   <div class="col-sm-12">
+                    <label for="inputName" class="control-label">Компания/Предприятие:</label>
+                      <input type="text" class="form-control" {{profile_form.Company}}
+                  </div>
+                </div>
+
+                <br>
+                <br>
+
+                <div class="row">
+                <div class="col-sm-12">
+                  <label for="inputName" class="col-sm-12 control-label">Дополнительная информация:</label>
+                  <div class="">
+
+                    <textarea rows="5" class="form-control"{{profile_form.Other_info}} </textarea>
+                  </div>
+                </div>
+
+                </div>
+
+
+
+
+
+                <br>
+                <div class="col-sm-7">
+                  <div class="btn-div">
+                    <input type="submit" class="btn btn-success pull-right" value="Сохранить изменения">
+                  </div>
+                </div>
+                </form>
+            </section>
+
+
+
+
+
+
+          </div>
+          <!-- col-8 -->
+        </div>
+
+      </div>
+      <!-- Content Ends -->
+    </div>
+    <!-- UI - X Ends -->
+</div>
+
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

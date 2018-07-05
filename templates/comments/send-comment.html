@@ -1,0 +1,16 @@
+{% load static %}
+<h4 class="sub-title">Оставьте свой отзыв или комментарий</h4>
+<div class="row">
+    <form action="{% url 'comments:add_comment'%}" id="comment-form" method="post">
+        {% csrf_token %}
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="input-group textarea-container">
+                <span class="input-group-addon"><span class="input-icon input-icon-message"></span><span class="input-text">Оставить комментарий&#42;</span></span>
+                {{comments_form.Text }}
+                {{comments_form.User}}<!-- СКРЫТОЕ ПОЛЕ-->
+                {{comments_form.Product }}<!-- СКРЫТОЕ ПОЛЕ-->
+            </div><!-- End .input-group -->
+            <input type="submit" value="Комментировать" class="btn btn-custom-2">
+        </div><!-- End .col-md-6 -->
+    </form>
+</div><!-- End .row -->

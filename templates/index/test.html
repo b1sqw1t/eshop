@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+    {{ time|date:"H:i:s" }}
+</div>
+<div class="container">
+    <div class="row">
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" name="user_name" placeholder="name" id="user_name_input">
+            <input type="text" name="user_password" placeholder="password">
+            <input type="text" name="user_password2" placeholder="password2">
+
+            <button type="submit" >Login</button>
+
+        </form>
+            <button id="check_name_btn" >Login</button>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="{% static 'js/myscript.js'%}"></script>
+</body>
+</html>

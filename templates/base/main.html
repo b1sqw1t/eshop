@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+{% load static %}
+<!--[if IE 8]> <html class="ie8"> <![endif]-->
+<!--[if IE 9]> <html class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %} {{ page_title }} {% endblock %}</title>
+        <meta name="description" content="Responsive modern ecommerce Html5 Template">
+        <!--[if IE]> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <![endif]-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href='//fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic%7CPT+Gudea:400,700,400italic%7CPT+Oswald:400,700,300' rel='stylesheet' id="googlefont">
+
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/prettyPhoto.css' %}">
+        <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+        <link rel="stylesheet" href="{% static 'css/revslider.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'css/jquery.selectbox.css' %}">
+
+        <!--- Modernizr -->
+        <script src="{% static 'js/modernizr.custom.js' %}"></script>
+
+        <!-- Favicon and Apple Icons -->
+        <link rel="icon" type="image/png" href="{% static 'images/icons/icon.png' %}">
+        <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/icons/apple-icon-57x57.png' %}">
+        <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/icons/apple-icon-72x72.png' %}">
+
+        <!--- jQuery -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="{% static 'js/jquery-1.11.1.min.js' %}"><\/script>')</script>
+
+        <!--[if lt IE 9]>
+            <script src="{% static 'js/html5shiv.js' %}"></script>
+            <script src="{% static 'js/respond.min.js' %}"></script>
+        <![endif]-->
+
+        <style id="custom-style">
+
+        </style>
+    </head>
+    <body>
+    <div id="wrapper">
+        {% include "base/header.html" %}
+
+        {% block body %}
+
+        {% endblock %}
+
+        {% include "base/footer.html" %}
+    </div><!-- End #wrapper -->
+
+    <a href="#" id="scroll-top" title="Scroll to Top"><i class="fa fa-angle-up"></i></a><!-- End #scroll-top -->
+
+	<!-- END -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/smoothscroll.js' %}"></script>
+	<script src="{% static 'js/jquery.debouncedresize.js' %}"></script>
+    <script src="{% static 'js/retina.min.js' %}"></script>
+    <script src="{% static 'js/jquery.placeholder.js' %}"></script>
+    <script src="{% static 'js/jquery.hoverIntent.min.js' %}"></script>
+    <script src="{% static 'js/twitter/jquery.tweet.min.js' %}"></script>
+    <script src="{% static 'js/jquery.flexslider-min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jflickrfeed.min.js' %}"></script>
+    <script src="{% static 'js/jquery.prettyPhoto.js' %}"></script>
+    <script src="{% static 'js/jquery.themepunch.tools.min.js' %}"></script>
+    <script src="{% static 'js/jquery.themepunch.revolution.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/jquery.selectbox.min.js' %}"></script>
+    <script>
+        $(function() {
+
+            // Slider Revolution
+            jQuery('#slider-rev').revolution({
+                delay:5000,
+                startwidth:870,
+                startheight:520,
+                onHoverStop:"true",
+                hideThumbs:250,
+                navigationHAlign:"center",
+                navigationVAlign:"bottom",
+                navigationHOffset:0,
+                navigationVOffset:15,
+                soloArrowLeftHalign:"left",
+                soloArrowLeftValign:"center",
+                soloArrowLeftHOffset:0,
+                soloArrowLeftVOffset:0,
+                soloArrowRightHalign:"right",
+                soloArrowRightValign:"center",
+                soloArrowRightHOffset:0,
+                soloArrowRightVOffset:0,
+                touchenabled:"on",
+                stopAtSlide:-1,
+                stopAfterLoops:-1,
+                dottedOverlay:"none",
+                fullWidth:"on",
+                spinned:"spinner4",
+                shadow:3, // 1 2 3 to change shadows
+                hideTimerBar: "on",
+                // navigationStyle:"preview2"
+              });
+
+            /* This is fix for mobile devices position slider at the top  via absolute pos */
+            var fixSliderForMobile = function () {
+                var winWidth = $(window).width();
+
+                if (winWidth <= 767 && $('#slider-rev-container').length) {
+                    var revSliderHeight = $('#slider-rev').height();
+                        console.log(revSliderHeight);
+                    $('.slider-position').css('padding-top', revSliderHeight);
+                    $('.main-content').css('position', 'static');
+                } else {
+                    $('.slider-position').css('padding-top', 0);
+                    $('.main-content').css('position', 'relative');
+                }
+            };
+
+            fixSliderForMobile();
+
+            /* Resize fix positionin */
+            if($.event.special.debouncedresize) {
+                $(window).on('debouncedresize', function() {
+                    fixSliderForMobile();
+                });
+            } else {
+                $(window).on('resize', function () {
+                    fixSliderForMobile();
+                });
+            }
+
+
+        });
+    </script>
+    </body>
+</html>

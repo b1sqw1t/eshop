@@ -1,0 +1,256 @@
+{% extends 'base/main.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block body %}
+
+        <section id="content">
+        	<div id="breadcrumb-container">
+        		<div class="container">
+					<ul class="breadcrumb">
+						<li><a href="index.html">Главная страница</a></li>
+						<li class="active"><a href="{{ object.product_category.category_slug }}/">{{ object.product_category.category_name }}</a>    </li>
+						<li class="active"><a href="{{ object.product_brand }}/">{{ object.product_brand }}</a>    </li>
+						<li class="active">{{ object.product_name}}</li>
+					</ul>
+        		</div>
+
+        	</div>
+			{% if messages %}
+				{% for message in messages %}
+					<div class="container" style="height: 100px;">
+						<div class="row">
+							<div class="col-md-12">
+								<!-- Success messages -->
+								<div class="alert alert-{{ message.tags }} alert-autocloseable-{{ message.tags }} " id="autoclosable-btn-success" >
+									{{message|safe }}
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			{% endif %}
+
+        	<div class="container">
+        		<div class="row">
+        			<div class="col-md-12">
+        				
+        				<div class="row">
+        				
+        				<div class="col-md-6 col-sm-12 col-xs-12 product-viewer clearfix">
+
+        					<div id="product-image-carousel-container">
+        						<ul id="product-carousel" class="celastislide-list">
+                                    {% for image in object.images.all %}
+                                        {% if forloop.first %}
+	        						        <li class="active-slide"><a data-rel='prettyPhoto[product]' href ="{{ image.picture_image.url }}" data-image="{{ image.picture_image.url }}" data-zoom-image="{{ image.picture_image.url }}" class="product-gallery-item"><img src="{{image.picture_image|thumbnail_url:'pv'}}" alt="Phone photo 1"></a></li>
+	        						    {% else %}
+                                            <li><a data-rel='prettyPhoto[product]' href ="{{ image.picture_image.url }}" data-image="{{image.picture_image.url}}" data-zoom-image="{{ image.picture_image.url }}" class="product-gallery-item"><img src="{{image.picture_image|thumbnail_url:'pv'}}" alt="{{ object.product_brand }} {{ object.product_name }} Фото {{ forloop.counter }}"></a></li>
+                                        {% endif %}
+                                    {% endfor %}
+        					</ul><!-- End product-carousel -->
+        					</div>
+
+        					<div id="product-image-container">
+        						<figure><img src="{{ object.images.all.0.picture_image.url }}" data-zoom-image="{{ object.images.all.0.picture_image.url }}" alt="Product Big image" id="product-image">
+        							<figcaption class="item-price-container">
+										{% if product.product_new_price > 0 %}
+                    						<span class="old-price">{{ product.product_price}}</span>
+                    						<span class="item-price">{{ product.product_new_price }}</span>
+                						{% else %}
+                						    <span class="item-price">{{ product.product_price}}</span>
+                						{% endif %}
+									</figcaption>
+        						</figure>
+        					</div><!-- product-image-container -->
+        				</div><!-- End .col-md-6 -->
+
+        				<div class="col-md-6 col-sm-12 col-xs-12 product">
+                        <div class="lg-margin visible-sm visible-xs"></div><!-- Space -->
+        					<h1 class="product-name">{{ object.product_brand }} {{ object.product_name }}</h1>
+
+
+        					<div class="ratings-container">
+								<div class="ratings separator">
+									<div class="ratings-result" data-result="{{object.product_rating}}"></div>
+								</div><!-- End .ratings -->
+
+								<span class="ratings-amount separator">
+								</span><span class="ratings-amount separator">
+
+									{{ object.get_votes }}  Голос(ов)
+								<span class="separator">|</span>
+								<a href="{% url 'index:product_like' model=object.product_slug%}" title="Нравится"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+								 или
+								<a href="{% url 'index:product_dislike' model=object.product_slug%}" title="Не нравится"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+								</span>
+								<span class="separator">|</span>
+								<a href=" #review" class="rate-this">Добавить в мои желания</a>
+							</div><!-- End .rating-container -->
+        				<ul class="product-list">
+        					<li><span>Наличие:</span>
+                            {% if object.product_visible and  object.product_count > 0 %}
+                                В Наличии. На складе {{object.product_count}} ед.
+                                {% else %}
+                                Закончились. Ждем пополнения.
+                                {% endif %}
+                            </li>
+        					<li><span>Id продукта:</span>{{ object.id }}</li>
+        					<li><span>Производитель:</span>{{ object.product_brand }}</li>
+        				</ul>
+        				<hr>
+                        <div class="product-color-filter-container">
+                            <span>Выберите расцветку:</span>
+                            <div class="xs-margin"></div>
+                            <ul class="filter-color-list clearfix">
+                                <li><a href="#" data-bgcolor="#fff" class="filter-color-box"></a></li>
+                                <li><a href="#" data-bgcolor="#d1d2d4" class="filter-color-box"></a></li>
+                                <li><a href="#" data-bgcolor="#666467" class="filter-color-box"></a></li>
+                                <li><a href="#" data-bgcolor="#515151" class="filter-color-box"></a></li>
+                                <li><a href="#" data-bgcolor="#bcdae6" class="filter-color-box"></a></li>
+                                <li><a href="#" data-bgcolor="#5272b3" class="filter-color-box"></a></li>
+                                <li><a href="#" data-bgcolor="#acbf0b" class="filter-color-box"></a></li>
+                            </ul>
+                        </div><!-- End .product-color-filter-container-->
+                       <div class="product-size-filter-container">
+                            <span>Выберите Комплектацию:</span>
+                            <div class="xs-margin"></div>
+                            <ul class="filter-size-list clearfix">
+                                <li><a href="#">1 ГБ</a></li>
+                                <li><a href="#">2 ГБ</a></li>
+                                <li><a href="#">4 ГБ</a></li>
+                                <li><a href="#">6 ГБ</a></li>
+                                <li><a href="#">8 ГБ</a></li>
+                            </ul>
+                        </div><!-- End .product-size-filter-container-->
+                        <hr>
+							<div class="product-add clearfix">
+
+
+									<form action="{% url 'cart:cart_add' object.id %}" method="post">
+										<div class="custom-quantity-input">
+
+											<div>{{ cart_product_form.quantity }} </div>
+    									{% csrf_token %}
+										</div>
+
+										<button type="submit" class="btn btn-custom-2">в корзину</button>
+
+									</form>
+							</div><!-- .product-add -->
+        					<div class="md-margin"></div><!-- Space -->
+        					<div class="product-extra clearfix">
+								<div class="product-extra-box-container clearfix">
+									<div class="item-action-inner">
+										<a href="#" class="icon-button icon-like">Favourite</a>
+										<a href="#" class="icon-button icon-compare">Checkout</a>
+									</div><!-- End .item-action-inner -->
+								</div>
+								<div class="md-margin visible-xs"></div>
+								<div class="share-button-group">
+									<!-- AddThis Button BEGIN -->
+									<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+									<a class="addthis_button_facebook"></a>
+									<a class="addthis_button_twitter"></a>
+									<a class="addthis_button_email"></a>
+									<a class="addthis_button_print"></a>
+									<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+									</div>
+									<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+									<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52b2197865ea0183"></script>
+									<!-- AddThis Button END -->
+								</div><!-- End .share-button-group -->
+        					</div>
+        				</div><!-- End .col-md-6 -->
+
+
+        				</div><!-- End .row -->
+
+        				<div class="lg-margin2x"></div><!-- End .space -->
+
+        				<div class="row">
+        					<div class="col-md-9 col-sm-12 col-xs-12">
+
+        						<div class="tab-container left product-detail-tab clearfix">
+        								<ul class="nav-tabs">
+										  <li class="active"><a href="#overview" data-toggle="tab">Описание</a></li>
+										  <li><a href="#description" data-toggle="tab">Характеристика</a></li>
+										  <li><a href="#review" data-toggle="tab">ОБЗОР</a></li>
+										  <li><a href="#additional" data-toggle="tab">Доп. информация</a></li>
+										  <li><a href="#video" data-toggle="tab">Видео-обзор</a></li>
+										</ul>
+        								<div class="tab-content clearfix">
+
+        									<div class="tab-pane active" id="overview">
+        										{{ object.product_description }}
+        									</div><!-- End .tab-pane -->
+
+        									<div class="tab-pane" id="description">
+												<p>The perfect mix of portability and performance in a slim 1" form factor:</p>
+        										<ul class="product-details-list">
+        											<li>3rd gen Intel® Core™ i7 quad core processor available;</li>
+        											<li>Windows 8 Pro available;</li>
+        											<li>13.3" and 15.5" screen sizes available;</li>
+        											<li>Double your battery life with available sheet battery;</li>
+        											<li>4th gen Intel® Core™ i7 processor available;</li>
+        											<li>Full HD TRILUMINOS IPS touchscreen (1920 x 1080);</li>
+        											<li>Super fast 512GB PCIe SSD available;</li>
+        											<li>Ultra-light at just 2.34 lbs.</li>
+        											<li>And more...</li>
+        										</ul>
+        									</div><!-- End .tab-pane -->
+
+        									<div class="tab-pane" id="review">
+
+        										<p>Sed volutpat ac massa eget lacinia. Suspendisse non purus semper, tellus vel, tristique urna. </p>
+        										<p>Cumque nihil facere itaque mollitia consectetur saepe cupiditate debitis fugiat temporibus soluta maxime doloremque alias enim officia aperiam at similique quae vel sapiente nulla molestiae tenetur deleniti architecto ratione accusantium.
+        										</p>
+        									</div><!-- End .tab-pane -->
+
+        									<div class="tab-pane" id="additional">
+        										<strong>Additional Informations</strong>
+        										<p>Quae eum placeat reiciendis enim at dolorem eligendi?</p>
+        										<hr>
+        										<ul class="product-details-list">
+        											<li>Lorem ipsum dolor sit quam</li>
+        											<li>Consectetur adipisicing elit</li>
+        											<li>Illum autem tempora officia</li>
+        											<li>Amet  id odio architecto explicabo </li>
+        											<li>Voluptatem  laborum veritatis</li>
+        											<li>Quae laudantium iste libero</li>
+        										</ul>
+        									</div><!-- End .tab-pane -->
+
+        									<div class="tab-pane" id="video">
+        										<div class="video-container">
+        											<strong>A Video about Product</strong>
+        											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur adipisci esse.</p>
+        											<hr>
+        											<iframe width="560" height="315" src="//www.youtube.com/embed/Z0MNVFtyO30?rel=0"></iframe>
+
+        										</div><!-- End .video-container -->
+
+        									</div><!-- End .tab-pane -->
+        								</div><!-- End .tab-content -->
+        						</div><!-- End .tab-container -->
+        						<div class="lg-margin visible-xs"></div>
+        					</div><!-- End .col-md-9 -->
+        					<div class="lg-margin2x visible-sm visible-xs"></div><!-- Space -->
+        					<div class="col-md-3 col-sm-12 col-xs-12 sidebar">
+
+
+        					</div><!-- End .col-md-4 -->
+        				</div><!-- End .row -->
+        				<div class="lg-margin2x"></div><!-- Space -->
+
+{% include 'comments/comments-list.html' %}
+
+        			</div><!-- End .col-md-12 -->
+        		</div><!-- End .row -->
+			</div><!-- End .container -->
+        
+        </section><!-- End #content -->
+    
+	<script src="{% static 'js/jquery.fitvids.js' %}"></script>
+    <script src="{% static 'js/jquery.elastislide.js' %}"></script>
+    <script src="{% static 'js/jquery.elevateZoom.min.js' %}"></script>
+{% endblock %}

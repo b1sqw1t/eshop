@@ -1,0 +1,8 @@
+Django==2.0.5
+Pillow==5.1.0
+easy_thumbnails==2.5
+pytz==2018.4
+setuptools==39.0.1
+django-autoslug==1.9.3
+
+

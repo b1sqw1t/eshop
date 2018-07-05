@@ -1,0 +1,214 @@
+{% extends 'base/main.html' %}
+{% load static %}
+{% block body %}
+
+
+        <section id="content">
+
+        	<div id="category-breadcrumb">
+        		<div class="container">
+					<ul class="breadcrumb">
+						<li><a href="/">Главная страница</a></li>
+						<li><a href="#">Электроника</a></li>
+						<li class="active">Категории</li>
+					</ul>
+        		</div>
+        	</div>
+        	<div class="container">
+        		<div class="row">
+        			<div class="col-md-12">
+
+        				<div class="row">
+
+        					<div class="col-md-9 col-sm-8 col-xs-12 main-content">
+
+        						<div class="category-toolbar clearfix">
+									<div class="toolbox-filter clearfix">
+
+										<div class="sort-box">
+											<span class="separator">Сортировать:</span>
+											<div class="btn-group select-dropdown">
+												<button type="button" class="btn select-btn">Выберите</button>
+												<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+													<i class="fa fa-angle-down"></i>
+												</button>
+												<ul class="dropdown-menu" role="menu">
+													<li><a href="#">Дате</a></li>
+													<li><a href="#">Названию</a></li>
+													<li><a href="#">Цене</a></li>
+												</ul>
+											</div>
+										</div>
+
+										<div class="view-box">
+											{% if request.session.view == 'grid' %}
+												<a href="{% url 'index:category_view' %}?view=grid" class="active icon-button icon-grid view" data-v="grid"><i class="fa fa-th-large"></i></a>
+												<a href="{% url 'index:category_view' %}?view=list" class="icon-button icon-list view" 		data-v="list"><i class="fa fa-th-list"></i></a>
+
+
+											{% else %}
+												<a href="{% url 'index:category_view' %}?view=grid" class="icon-button icon-grid view" data-v="grid"><i class="fa fa-th-large"></i></a>
+												<a href="{% url 'index:category_view' %}?view=list" class="active icon-button icon-list view" data-v="list"><i class="fa fa-th-list"></i></a>
+
+											{% endif %}
+										</div><!-- End .view-box -->
+
+									</div><!-- End .toolbox-filter -->
+									<div class="toolbox-pagination clearfix">
+										<ul class="pagination">
+                                            {% include 'base/paginate.html' %}
+                                        </ul>
+										<div class="view-count-box">
+											<span class="separator">На странице:</span>
+											<div class="btn-group select-dropdown">
+											{% include 'base/dropdown-menu.html' %}
+
+											</div>
+										</div><!-- End .view-count-box -->
+
+									</div><!-- End .toolbox-pagination -->
+
+        						</div><!-- End .category-toolbar -->
+        						<div class="md-margin"></div><!-- .space -->
+
+                                <!-- ДЛЯ ОТОБРАЖЕНИЯ ПЛИТКОЙ ИЛИ СПИСКОМ ----->
+
+
+								{% if request.session.view == 'grid' %}
+    								<div class="category-item-container">
+        								<div class="row">
+        								{% for product in object_list %}
+                                    		<div class="col-md-4 col-sm-6 col-xs-12">
+												{% include 'base/central-panel.html' %}
+                                    		</div><!-- End .col-md-4 -->
+                                    	{% endfor %}
+        								</div><!-- End .row -->
+        							</div><!-- End .category-item-container -->
+								{% else %}
+    								<div class="category-item-container category-list-container">
+                                    	{% for product in object_list %}
+											{% include 'base/central-panel2.html' %}
+										{% endfor %}
+									</div>
+								{% endif %}
+
+                                <!-- КОНЕЦ ОТОБРАЖЕНИЯ -->
+
+
+        						<div class="pagination-container clearfix">
+        							<div class="pull-right">
+										<ul class="pagination">
+											{% include 'base/paginate.html' %}
+											</ul>
+        							</div><!-- End .pull-right -->
+
+        							<div class="pull-right view-count-box hidden-xs">
+										<span class="separator">На странице:</span>
+										<div class="btn-group select-dropdown">
+											{% include 'base/dropdown-menu.html' %}
+										</div>
+									</div>
+        						</div><!-- End pagination-container -->
+
+
+        					</div><!-- End .col-md-9 -->
+
+        					<aside class="col-md-3 col-sm-4 col-xs-12 sidebar">
+        						<div class="widget">
+        							<div class="panel-group custom-accordion sm-accordion" id="category-filter">
+										<div class="panel">
+											<div class="accordion-header">
+												<div class="accordion-title"><span>Категории</span></div><!-- End .accordion-title -->
+									<a class="accordion-btn opened"  data-toggle="collapse" data-target="#category-list-1"></a>
+											</div><!-- End .accordion-header -->
+										<div id="category-list-1" class="collapse in">
+											<div class="panel-body">
+												<ul class="category-filter-list jscrollpane">
+													{% for category in category_list %}
+
+                                                    <li><a href="{% url 'index:category_view' type=category.category_slug %}">{{category.category_name}} ({{category.category_count}})</a></li>
+													{% endfor %}
+												</ul>
+											</div><!-- End .panel-body -->
+										</div><!-- #collapse -->
+										</div><!-- End .panel -->
+
+        								<div class="panel">
+											<div class="accordion-header">
+												<div class="accordion-title"><span>Производитель</span></div><!-- End .accordion-title -->
+									<a class="accordion-btn opened"  data-toggle="collapse" data-target="#category-list-2"></a>
+											</div><!-- End .accordion-header -->
+
+										<div id="category-list-2" class="collapse in">
+											<div class="panel-body">
+											<ul class="category-filter-list jscrollpane">
+												{% for brand in brand_list %}
+                                                <li><a href="#">{{brand.brand_name}} ({{ brand.brand_count}})</a></li>
+                                                {% endfor %}
+											</ul>
+											</div><!-- End .panel-body -->
+										</div><!-- #collapse -->
+										</div><!-- End .panel -->
+
+        							<div class="panel">
+											<div class="accordion-header">
+												<div class="accordion-title"><span>По цене:</span></div><!-- End .accordion-title -->
+									<a class="accordion-btn opened"  data-toggle="collapse" data-target="#category-list-3"></a>
+											</div><!-- End .accordion-header -->
+
+										<div id="category-list-3" class="collapse in">
+											<div class="panel-body">
+												<div id="price-range">
+
+												</div><!-- End #price-range -->
+												<div id="price-range-details">
+													<span class="sm-separator">from</span>
+													<input type="text" id="price-range-low" class="separator">
+													<span class="sm-separator">to</span>
+													<input type="text" id="price-range-high">
+												</div>
+												<div id="price-range-btns">
+													<a href="#" class="btn btn-custom-2 btn-sm">Ok</a>
+													<a href="#" class="btn btn-custom-2 btn-sm">Clear</a>
+												</div>
+
+											</div><!-- End .panel-body -->
+										</div><!-- #collapse -->
+										</div><!-- End .panel -->
+
+
+        						</div><!-- End .widget -->
+
+
+
+
+
+        					</aside><!-- End .col-md-3 -->
+        				</div><!-- End .row -->
+
+
+        			</div><!-- End .col-md-12 -->
+        		</div><!-- End .row -->
+			</div><!-- End .container -->
+
+        </section><!-- End #content -->
+
+    </div><!-- End #wrapper -->
+        <a href="#" id="scroll-top" title="Scroll to Top"><i class="fa fa-angle-up"></i></a><!-- End #scroll-top -->
+    <!-- END -->
+	<script src="{% static 'js/bootstrap.min.js ' %}"></script>
+    <script src="{% static 'js/smoothscroll.js ' %}"></script>
+    <script src="{% static 'js/jquery.debouncedresize.js ' %}"></script>
+    <script src="{% static 'js/retina.min.js ' %}"></script>
+    <script src="{% static 'js/jquery.placeholder.js ' %}"></script>
+    <script src="{% static 'js/jquery.hoverIntent.min.js ' %}"></script>
+	<script src="{% static 'js/twitter/jquery.tweet.min.js ' %}"></script>
+	<script src="{% static 'js/jquery.flexslider-min.js ' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js ' %}"></script>
+	<script src="{% static 'js/jflickrfeed.min.js ' %}"></script>
+	<script src="{% static 'js/jquery.prettyPhoto.js ' %}"></script>
+	<script src="{% static 'js/jquery.nouislider.min.js ' %}"></script>
+	<script src="{% static 'js/jquery.jscrollpane.min.js ' %}"></script>
+	<script src="{% static 'js/jquery.mousewheel.js ' %}"></script>
+	<script src="{% static 'js/main.js ' %}"></script>
+{% endblock %}

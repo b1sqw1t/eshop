@@ -1,0 +1,67 @@
+{% extends "base/main.html" %}
+{% load static %}
+{% block title %} Авторизация пользователя {% endblock %}
+{% block body %}
+
+<section id="content">
+        	<div id="breadcrumb-container">
+        		<div class="container">
+					<ul class="breadcrumb">
+						<li><a href="index.html">Главная страница</a></li>
+						<li class="active">Авторизация</li>
+					</ul>
+        		</div>
+        	</div>
+        	<div class="container">
+        		<div class="row">
+        			<div class="col-md-12">
+						<header class="content-title">
+							<h1 class="title">Войдите или создайте новый аккаунт</h1>
+                            <div class="md-margin"></div><!-- space -->
+						</header>
+
+						   <div class="row">
+
+							   	<div class="col-md-6 col-sm-6 col-xs-12">
+							   		<h2>Новый аккаунт</h2>
+
+							   	<p>В нашем магазине Вы можете быстро создать новую учетную запись.В Своей учетной записи Вы сможете хранить несколько адресов доставки, просматривать и отслеживать заказы в вашем магазине и многое другое..</p>
+                                <div class="md-margin"></div><!-- space -->
+							   	<a href="{% url 'account:registration' %}" class="btn btn-custom-2">Создать новый аккаунт</a>
+                                <div class="lg-margin"></div><!-- space -->
+							   	</div><!-- End .col-md-6 -->
+							   	<div class="col-md-6 col-sm-6 col-xs-12">
+							   		<h2>Форма авторизации</h2>
+							   		<p>Если вы уже зарегистрированы, пожалуйста, войдите.</p>
+                                    {% if form.errors %}
+                                        <h3 style="color:red">Ошибка, вы ввели не правельный логин или пароль</h3>
+                                    {% endif %}
+							   		<div class="xs-margin"></div>
+
+									<form id="login-form" method="post" action="">
+                                        {% csrf_token %}
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="input-icon input-icon-email"></span>
+                                                <span class="input-text" >Логин&#42;</span>
+                                            </span>
+                                            <input type="text" required class="form-control input-lg" placeholder="{{ form.username.label }}" {{ form.username }}
+
+                                        </div><!-- End .input-group -->
+                                         <div class="input-group xs-margin">
+                                            <span class="input-group-addon"><span class="input-icon input-icon-password"></span><span class="input-text">Пароль&#42;</span></span>
+                                            <input type="password" required class="form-control input-lg" placeholder="{{ form.password.label}}" {{ form.password }}
+                                         </div><!-- End .input-group -->
+                                    <span class="help-block text-right"><a href="{% url 'account:password_reset' %}">Забыли пароль?</a></span>
+                                    <button class="btn btn-custom-2" type="submit">Войти</button>
+                                    </form>
+                                    <div class="sm-margin"></div><!-- space -->
+							   	</div><!-- End .col-md-6 -->
+
+						   </div><!-- End.row -->
+
+        			</div><!-- End .col-md-12 -->
+        		</div><!-- End .row -->
+			</div><!-- End .container -->
+
+        </section><!-- End #content -->
+{% endblock %}

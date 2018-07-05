@@ -1,0 +1,122 @@
+{% extends "base/main.html" %}
+{% load static %}
+{% block title %}Оформление заказа{% endblock %}
+
+{% block body %}
+<div class="lg-margin"></div><!-- End .space -->
+    <div class="row">
+        <div class="col-md-2 col-sm-12 col-xs-12 lg-margin">
+
+        </div>
+        <div class="col-md-8 col-sm-12 col-xs-12 lg-margin">
+            <div align="center">
+                {% if messages %}
+				{% for message in messages %}
+					<div class="container" style="height: 100px;">
+						<div class="row">
+							<div class="col-md-12">
+								<!-- Success messages -->
+								<div class="alert alert-{{ message.tags }} alert-autocloseable-{{ message.tags }} " id="autoclosable-btn-success" >
+									{{message|safe }}
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			{% endif %}
+            </div>
+            <div class="table table" align="center" >
+
+            <h1>Ваш заказ <a href="{% url 'cart:cart_detail' %}">(Посмотреть заказ)</a></h1>
+            <table>
+                <tr>
+                    <td align="center">№</td>
+                    <td align="center">Производитель</td>
+                    <td align="center">Модель</td>
+                    <td align="center">Количество</td>
+                    <td align="center">Цена за единицу</td>
+                    <td align="center">Общая цена</td>
+                </tr>
+
+                {% for item in cart %}
+                <tr>
+                    <td align="center">{{ forloop.counter}}</td>
+                    <td align="center">{{item.product.product_brand}}</td>
+                    <td align="center">{{ item.product.product_name }}</td>
+                    <td align="center">{{ item.quantity }}</td>
+                    <td align="center">{{ item.price }}</td>
+                    <td align="center">{{ item.total_price }}</td>
+                </tr>
+                {% endfor %}
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="center">Итого</td>
+                    <td align="center">{{ cart.get_total_price }}</td>
+             </table>
+
+            </div>
+            <br>
+            <br>
+            <div class="tab-container left clearfix">
+                <ul class="nav-tabs">
+                    <li class="active"><a href="#shipping" data-toggle="tab">Доставка</a></li>
+                    <li><a href="#discount" data-toggle="tab">Промокод</a></li>
+                    <li><a href="#gift" data-toggle="tab">Подарочный сертификат </a></li>
+                </ul>
+                <div class="tab-content clearfix">
+                    <div class="tab-pane active" id="shipping">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <!-- id="shipping-form" -->
+                            <p class="shipping-desc"><h1>Заполните адрес доставки.</h1></p>
+                            {% for field in form %}
+                                <div class="form-group">
+                                    <label for="{{ field.id_for_label }}" class="control-label"  >{{field.label}}&#42;</label>
+                                    <div class="input-container">
+                                        <input class="form-control" {{field}}
+                                    </div>
+                                </div><!-- End .form-group -->
+                            {%endfor %}
+                            <div class="xss-margin"></div>
+                            <p class="text-right">
+                                <input type="submit" class="btn btn-custom-2" value="Оформить">
+                            </p>
+                        </form>
+                    </div><!-- End .tab-pane -->
+                    <div class="tab-pane" id="discount">
+                        <p>Введите промокод купона на скидку.</p>
+                        <form action="#">
+                            <div class="input-group">
+                                <input type="text" required class="form-control" placeholder="Введите промокод">	                            </div><!-- End .input-group -->
+                            <input type="submit" class="btn btn-custom-2" value="Применить скидку">
+                        </form>
+                    </div><!-- End .tab-pane -->
+                    <div class="tab-pane" id="gift">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi dignissimos nostrum debitis optio molestiae in quam dicta labore obcaecati ullam necessitatibus animi deleniti minima dolor suscipit nobis est excepturi inventore.</p>
+                    </div><!-- End .tab-pane -->
+                </div><!-- End .tab-content -->
+            </div><!-- End .tab-container -->
+        </div><!-- End .col-md-8 -->
+    </div>
+
+
+
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/smoothscroll.js' %}"></script>
+	<script src="{% static 'js/jquery.debouncedresize.js' %}"></script>
+    <script src="{% static 'js/retina.min.js' %}"></script>
+    <script src="{% static 'js/jquery.placeholder.js' %}"></script>
+    <script src="{% static 'js/jquery.hoverIntent.min.js' %}"></script>
+	<script src="{% static 'js/twitter/jquery.tweet.min.js' %}"></script>
+	<script src="{% static 'js/jquery.flexslider-min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'js/jflickrfeed.min.js' %}"></script>
+	<script src="{% static 'js/jquery.prettyPhoto.js' %}"></script>
+    <script src="{% static 'js/jquery.selectbox.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/jquery.fitvids.js' %}"></script>
+    <script src="{% static 'js/jquery.elastislide.js' %}"></script>
+    <script src="{% static 'js/jquery.elevateZoom.min.js' %}"></script>
+{% endblock %}

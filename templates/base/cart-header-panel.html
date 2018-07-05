@@ -1,0 +1,16 @@
+{% load static %}
+    <a href="{% url 'cart:cart_remove' product_id=field.product.id%}" title="Delete item" class="delete-item"><i class="fa fa-times"></i></a>
+    <a href="{% url 'cart:cart_detail' %}" title="Edit item" class="edit-item"><i class="fa fa-pencil"></i></a>
+    <figure>
+        <a href="{% url 'index:product_view' model=field.product.product_slug%}"><img src=" {{field.product.images.all.0.picture_image.url }}" alt="phone 4"></a>
+    </figure>
+    <div class="dropdown-cart-details">
+        <p class="item-name">
+            <a href="{% url 'index:product_view' model=field.product.product_slug%}">{{ field.product.product_brand}} {{ field.product.product_name }} </a>
+        </p>
+        <p>
+            Кол-во: {{field.quantity}}</p>
+        <p>
+        <span class="item-price">На сумму: {{ field.price }}&#8381;</span>
+        </p>
+    </div><!-- End .dropdown-cart-details -->

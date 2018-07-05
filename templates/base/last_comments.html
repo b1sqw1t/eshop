@@ -1,0 +1,24 @@
+{% load static %}
+{% load thumbnail %}
+<div class="widget testimonials">
+    <h3>Отзывы</h3>
+    <div class="testimonials-slider flexslider sidebarslider">
+        <ul class="testimonials-list clearfix">
+           {% for comment in last_comments %}
+            <li>
+                <div class="testimonial-details">
+                    <header><a href="{% url 'index:product_view' model=comment.Product.product_slug %}">{{comment.Product.product_brand}} {{comment.Product.product_name}}</a></header>
+                    {{ comment.Text }}
+                </div><!-- End .testimonial-details -->
+                <figure class="clearfix">
+                    <img src="{{ comment.User.profile.image|thumbnail_url:'comments_ava'}}" alt="Computer Ceo">
+                    <figcaption>
+                        <a href="{% url 'account:view_profile' id=comment.User.id %}">{{comment.User}}</a>
+                        <span>{{comment.Created}}</span>
+                    </figcaption>
+                </figure>
+            </li>
+            {% endfor %}
+        </ul>
+    </div><!-- End .testimonials-slider -->
+</div><!-- End .widget -->

@@ -1,0 +1,63 @@
+{% load static %}
+{% load thumbnail %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-9 col-sm-8 col-xs-12 articles-container single-post">
+                    <div class="comments">
+                        <header class="title-bg">
+                            <h3>Комментарии ({% if comments.count %} {{comments.count}} {% else %} 0 {% endif %})</h3>
+                        </header>
+                        <ul class="comments-list">
+                            {% for comment in  comments %}
+                            <li>
+                                <div class="comment clearfix">
+                                    <figure>
+                                        <img src="{{ comment.User.profile.image|thumbnail_url:'comments_ava'}}" alt="{{comment.User}}">
+                                        <p>
+                                            <table align="center">
+
+                                                <tr cellpadding="2">
+                                                    <td><h3><a href="#">+</a></h3></td>
+                                                    <td><h3>0</h3></td>
+                                                    <td><h3><a href="#">-</a></h3></td>
+                                                </tr>
+                                            </table>
+                                        </p>
+                                    </figure>
+
+                                    <div class="comment-details">
+                                        <div class="comment-meta-container">
+                                            <a href="#">{{ comment.User }}</a>
+                                            <span>{{comment.Created}} </span>
+                                            {% if comment.User == user %}
+                                            <a href="#" class="replay-button">Редактировать</a>
+                                            <a href="{% url 'comments:delete_comment' id=comment.id %}" class="replay-button">Удалить</a>
+
+                                            {% endif %}
+                                        </div><!-- End .comment-meta-container -->
+                                        <p id="{{comment.id}}">{{comment.Text}}</p>
+                                    </div><!-- End .comment-details -->
+                                </div><!-- End .comment -->
+
+                            </li>
+                            {% endfor %}
+                            </ul>
+
+
+
+
+                        {% include 'comments/send-comment.html' %}
+
+                    </div><!-- End .comments -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
